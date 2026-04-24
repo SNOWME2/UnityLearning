@@ -3,10 +3,7 @@ using UnityEngine;
 using System;
 
 public class GameInputs : MonoBehaviour
-
-   
 {
-
     public event EventHandler OnInteractAction;
     private PlayerInputActions playerInputActions;
 

@@ -1,24 +1,25 @@
 using UnityEngine;
 using System;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour,IKitchenObjectParent {
     // ===================== FIELDS =====================
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInputs gameInput;
     [SerializeField] private LayerMask counterLayerMask;
+    [SerializeField] private Transform playerHoldPoint;
 
     public static Player Instance { get; private set; }
 
     private bool isWalking;
     private Vector3 lastInteractDiraction;
-    private ClearCounter selectedCounter;
-
+    private BaseCounter selectedCounter;
+    private KitchenObject kitchenObject;
 
     // ===================== EVENTS =====================
     public event EventHandler<OnSelectedCounterChangedEvetArgs> OnSelectedCounterChanged;
 
     public class OnSelectedCounterChangedEvetArgs : EventArgs {
-        public ClearCounter selectedClearCounter;
+        public BaseCounter selectedClearCounter;
     }
 
 
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour {
     // ===================== INPUT CALLBACKS =====================
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         if (selectedCounter != null) {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
     }
 
@@ -131,7 +132,7 @@ public class Player : MonoBehaviour {
             out RaycastHit raycastHit,
             interactDistance,
             counterLayerMask)) {
-            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter)) {
+            if (raycastHit.transform.TryGetComponent(out BaseCounter clearCounter)) {
                 if (clearCounter != selectedCounter) {
                     SelectedKitchenTable(clearCounter);
 
@@ -149,7 +150,7 @@ public class Player : MonoBehaviour {
 
 
     // ===================== SELECTION =====================
-    private void SelectedKitchenTable(ClearCounter selectedClearCounter) {
+    private void SelectedKitchenTable(BaseCounter selectedClearCounter) {
         this.selectedCounter = selectedClearCounter;
 
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEvetArgs {
@@ -157,5 +158,22 @@ public class Player : MonoBehaviour {
         });
 
         Debug.Log(selectedClearCounter);
+    }
+
+    public Transform GetKitchenObjectFollowTransform() {
+        return playerHoldPoint;
+    }
+    public void SetKitchenObject(KitchenObject kitchenObject) {
+
+        this.kitchenObject = kitchenObject;
+
+    }
+
+    public KitchenObject GetKitchenObject() {
+        return kitchenObject;
+    }
+
+    public void ClearKitchenObject() {
+        kitchenObject = null;
     }
 }

@@ -3,18 +3,19 @@ using UnityEngine;
 public class KitchenObject : MonoBehaviour {
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
-    private ClearCounter clearCounter;
+   
+    private IKitchenObjectParent kitchenObjectParent;
     public KitchenObjectSO GetKitchenObjectSO() {
         return kitchenObjectSO;
 
     }
 
-    public void SetClearCounter(ClearCounter clearCounter) {
-        if (this.clearCounter != null) {
-            this.clearCounter.ClearKitchenObject();
+    public void SetKitchenObjectParent(IKitchenObjectParent clearCounter) {
+        if (this.kitchenObjectParent != null) {
+            this.kitchenObjectParent.ClearKitchenObject();
         }
       
-        this.clearCounter = clearCounter;
+        this.kitchenObjectParent = clearCounter;
         clearCounter.SetKitchenObject(this);
 
         transform.parent = clearCounter.GetKitchenObjectFollowTransform();
@@ -22,8 +23,8 @@ public class KitchenObject : MonoBehaviour {
 
     }
 
-    public ClearCounter GetClearCounter() {
-        return clearCounter;
+    public IKitchenObjectParent GetKitchenObjectParent() {
+        return kitchenObjectParent;
     }
 
    
