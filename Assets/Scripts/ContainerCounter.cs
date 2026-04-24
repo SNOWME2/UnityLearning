@@ -1,20 +1,19 @@
+using System;
 using UnityEngine;
 
-public class ContainerCounter : BaseCounter,IKitchenObjectParent
+public class ContainerCounter : BaseCounter
 {
-
+    public event EventHandler OnPlayerGrabObject;
 
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
-    [SerializeField] private Transform counterTopPoint;
 
-
-    private KitchenObject kitchenObject;
     public override void Interact(Player player) {
         if (kitchenObject == null) {
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
 
             Debug.Log(kitchenObjectTransform.GetComponent<KitchenObject>());
-            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
+            OnPlayerGrabObject?.Invoke(this, EventArgs.Empty);
         }
         else {
             kitchenObject.SetKitchenObjectParent(player);
@@ -23,20 +22,5 @@ public class ContainerCounter : BaseCounter,IKitchenObjectParent
 
     }
 
-    public Transform GetKitchenObjectFollowTransform() {
-        return counterTopPoint;
-    }
-    public void SetKitchenObject(KitchenObject kitchenObject) {
-
-        this.kitchenObject = kitchenObject;
-
-    }
-
-    public KitchenObject GetKitchenObject() {
-        return kitchenObject;
-    }
-
-    public void ClearKitchenObject() {
-        kitchenObject = null;
-    }
+  
 }
