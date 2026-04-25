@@ -3,13 +3,16 @@ using UnityEngine;
 public class BaseCounter : MonoBehaviour,IKitchenObjectParent
 {
 
-    [SerializeField] protected Transform counterTopPoint;
-    protected KitchenObject kitchenObject;
+    [SerializeField] private Transform counterTopPoint;
+    private KitchenObject kitchenObject;
 
     public virtual void Interact(Player player) {
         Debug.Log("Base Counter Interact");
     }
 
+    public virtual void InteractAlternate(Player player) {
+
+    }
     public Transform GetKitchenObjectFollowTransform() {
         return counterTopPoint;
     }
@@ -25,5 +28,9 @@ public class BaseCounter : MonoBehaviour,IKitchenObjectParent
 
     public void ClearKitchenObject() {
         kitchenObject = null;
+    }
+
+    public bool HasKitchenObject() {
+        return kitchenObject != null;
     }
 }

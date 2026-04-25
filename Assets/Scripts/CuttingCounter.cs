@@ -1,11 +1,9 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
-public class ClearCounter : BaseCounter {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
+public class CuttingCounter : BaseCounter
+{
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
-
     public override void Interact(Player player) {
         if (!HasKitchenObject()) {
             //There is no Kitchen Object Here
@@ -16,10 +14,11 @@ public class ClearCounter : BaseCounter {
             else {
                 //Player does not carrying anything
             }
-        } else {
+        }
+        else {
             //There is Kitchen Object Here
             if (player.HasKitchenObject()) {
-              //Player Is Carrying Object
+                //Player Is Carrying Object
             }
             else {
                 //Player does not carrying anything
@@ -27,7 +26,14 @@ public class ClearCounter : BaseCounter {
             }
 
         }
-
     }
 
+    public override void InteractAlternate(Player player) {
+        if (HasKitchenObject()) {
+
+        
+            GetKitchenObject().DestroySelf();
+            KitchenObject.SpawnKitchenObject(kitchenObjectSO, this);
+        }
+    }
 }

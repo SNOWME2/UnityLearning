@@ -27,30 +27,36 @@ public class Player : MonoBehaviour,IKitchenObjectParent {
     private void Awake() {
         Instance = this;
     }
-
-    private void Start() {
-        gameInput.OnInteractAction += GameInput_OnInteractAction;
-    }
-
     private void Update() {
         HandleMovement();
         HandleInteractions();
     }
-
-
-    // ===================== PUBLIC METHODS =====================
-    public bool IsWalking() {
-        return isWalking;
+    private void Start() {
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
+
 
 
     // ===================== INPUT CALLBACKS =====================
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         if (selectedCounter != null) {
             selectedCounter.Interact(this);
+         
+        }
+    }
+    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e) {
+        if (selectedCounter != null) {
+            selectedCounter.InteractAlternate(this);
         }
     }
 
+ 
+
+    // ===================== PUBLIC METHODS =====================
+    public bool IsWalking() {
+        return isWalking;
+    }
 
     // ===================== MOVEMENT =====================
     private void HandleMovement() {
@@ -175,5 +181,9 @@ public class Player : MonoBehaviour,IKitchenObjectParent {
 
     public void ClearKitchenObject() {
         kitchenObject = null;
+    }
+
+    public bool HasKitchenObject() {
+        return kitchenObject != null;
     }
 }
