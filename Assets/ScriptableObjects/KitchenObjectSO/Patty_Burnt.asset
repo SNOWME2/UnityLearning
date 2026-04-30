@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0368c59c370fd041918b369bb5bfa1a, type: 3}
   m_Name: Patty_Burnt
   m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
-  prefab: {fileID: 5011832095137130254, guid: 4cb472827f6404846824aebe6bd8eb3f, type: 3}
-  sprite: {fileID: 21300000, guid: f1f50c7ef90b19741b26f2040806cf56, type: 3}
-  objectName: Patty_Uncooked
+  prefab: {fileID: 5011832095137130254, guid: 8483187432165d1489a4c65e3278a38c, type: 3}
+  sprite: {fileID: 21300000, guid: 713ea9afa60dd6e4ebf6503a33e8cc99, type: 3}
+  objectName: Patty_Burnt
