@@ -42,6 +42,7 @@ public class PlatesCounter : BaseCounter
                 KitchenObject.SpawnKitchenObject(PlateKitchenObjecSO,player);
                 OnPlateTaken?.Invoke(this, EventArgs.Empty);
             }
+         
         }
     }
 }

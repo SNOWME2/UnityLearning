@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using static CuttingCounter;
+
 
 public class StoveCounter : BaseCounter, IHasProgress
 {
@@ -112,9 +112,22 @@ public class StoveCounter : BaseCounter, IHasProgress
         else {
             //There is Kitchen Object Here
             if (player.HasKitchenObject()) {
-                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressEventChangedArgs() {
-                    progressNormalized = 0f
-                });
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject)) {
+
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO())) {
+                        GetKitchenObject().DestroySelf();
+                        state = State.Idle;
+                        OnStateChanged?.Invoke(this, new OnStateChangeEventArgs() {
+                            state = state
+                        });
+                        OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressEventChangedArgs() {
+                            progressNormalized = 0f
+                        });
+                    }
+                }
+
+       
+      
 
             }
             else {
