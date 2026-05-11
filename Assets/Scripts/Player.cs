@@ -163,7 +163,7 @@ public class Player : MonoBehaviour,IKitchenObjectParent {
             selectedClearCounter = selectedClearCounter
         });
 
-        Debug.Log(selectedClearCounter);
+
     }
 
     public Transform GetKitchenObjectFollowTransform() {

@@ -25,7 +25,7 @@ public class PlateIconUI : MonoBehaviour
             if (child == IconTemplate) continue;
             Destroy(child.gameObject);
         }
-        foreach(KitchenObjectSO kitchenObjectSO in plateKitchenObject.kitchenObjecttSOList()) {
+        foreach(KitchenObjectSO kitchenObjectSO in plateKitchenObject.GetKitchenObjectSOList()) {
             Transform Icon=Instantiate(IconTemplate, transform);
             Icon.gameObject.SetActive(true);
             Icon.GetComponent<PlateSingleUI>().SetKitchenObjectSO(kitchenObjectSO);
